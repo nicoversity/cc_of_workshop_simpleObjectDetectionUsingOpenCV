@@ -57,7 +57,8 @@ void ofApp::setup()
     cameraInput.initGrabber(imgWidth, imgHeight, true); // enable bTexture flag for setting up a texture and displaying the video on screen
     
     // initialize helper values
-    labelPosDelta = 14;
+    labelPosDelta     = 14;
+    blobOverlayRadius = 10;
 }
 
 //--------------------------------------------------------------
@@ -111,6 +112,7 @@ void ofApp::draw()
     valueImg.draw(2 * imgWidth, 1 * imgHeight);
     
     // row 3
+    saturationImg.draw(0 * imgWidth, 2 * imgHeight);    // copy of saturation image in order to put colored circles on detection objects in the scene
     bckgrndSatDiffImg.draw(1 * imgWidth, 2 * imgHeight);
     
     
@@ -119,6 +121,27 @@ void ofApp::draw()
     for (int i = 0; i < contourFinder.nBlobs; i++) {
         // access current blob
         contourFinder.blobs[i].draw(2 * imgWidth, 2 * imgHeight);   // draw current blob in bottom right image grid
+        
+        // extract RGB color from the center of the current blob based on original input image
+        //
+        
+        // get pixel reference of original input image
+        ofPixels originalInputImagePxls = originalInputImg.getPixelsRef();
+        
+        // get point reference to the center of the current detected blob
+        ofPoint blobCenterPnt = contourFinder.blobs[i].centroid;
+        
+        // get color of pixel in the center of the detected blob
+        ofColor detectedBlobClr = originalInputImagePxls.getColor(blobCenterPnt.x, blobCenterPnt.y);
+        
+        // apply detected color for drawing circle overlay
+        ofSetColor(detectedBlobClr);
+        ofFill();
+        
+        // draw circle overlay in bottom left image of the grid (ontop of a copy of the saturation image)
+        ofCircle(blobCenterPnt.x + 0 * imgWidth,
+                 blobCenterPnt.y + 2 * imgHeight,
+                 blobOverlayRadius);
     }
     
     
@@ -130,7 +153,9 @@ void ofApp::draw()
     ofDrawBitmapString("Hue", labelPosDelta + 0 * imgWidth, labelPosDelta + 1 * imgHeight);
     ofDrawBitmapString("Saturation", labelPosDelta + 1 * imgWidth, labelPosDelta + 1 * imgHeight);
     ofDrawBitmapString("Value", labelPosDelta + 2 * imgWidth, labelPosDelta + 1 * imgHeight);
+    ofDrawBitmapString("Color Detection", labelPosDelta + 0 * imgWidth, labelPosDelta + 2 * imgHeight);
     ofDrawBitmapString("Bckgrnd-Sat-Difference", labelPosDelta + 1 * imgWidth, labelPosDelta + 2 * imgHeight);
+    ofDrawBitmapString("Object Detection", labelPosDelta + 2 * imgWidth, labelPosDelta + 2 * imgHeight);
 }
 
 //--------------------------------------------------------------

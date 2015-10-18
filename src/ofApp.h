@@ -60,4 +60,5 @@ class ofApp : public ofBaseApp{
     
         // helper values
         int labelPosDelta;
+        int blobOverlayRadius;
 };
