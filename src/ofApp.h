@@ -43,6 +43,8 @@ class ofApp : public ofBaseApp{
         ofxCvGrayscaleImage hueImg;         // representing the hue channel of the HSV image
         ofxCvGrayscaleImage saturationImg;  // representing the saturation channel of the HSV image
         ofxCvGrayscaleImage valueImg;       // representing the value channel of the HSV image
+        ofxCvGrayscaleImage backgroundImg;      // registred background image in order to assist object detection
+        ofxCvGrayscaleImage bckgrndSatDiffImg;    // image instance representing the difference between the registered background image and the current saturation color channel image in order to run the object (contour) detection on
     
         // camera instance
         ofVideoGrabber cameraInput;

@@ -42,6 +42,8 @@ void ofApp::setup()
     hueImg.allocate(imgWidth, imgHeight);
     saturationImg.allocate(imgWidth, imgHeight);
     valueImg.allocate(imgWidth, imgHeight);
+    backgroundImg.allocate(imgWidth, imgHeight);
+    bckgrndSatDiffImg.allocate(imgWidth, imgHeight);
     
     // initialize camera instance
     debugCameraDevices();   // print information about available camera sources
@@ -70,6 +72,9 @@ void ofApp::update()
         
         // extract HSV color space channels into separate image instances
         hsvImg.convertToGrayscalePlanarImages(hueImg, saturationImg, valueImg);
+        
+        // take the absolute value of the difference between the registered background image and the updated saturation color channel image in order to determine the image parts that have changed
+        bckgrndSatDiffImg.absDiff(backgroundImg, saturationImg);
     }
 }
 
@@ -85,25 +90,35 @@ void ofApp::draw()
     // row 1
     originalInputImg.draw(0 * imgWidth, 0 * imgHeight); // draw original input image as received from camera source
     hsvImg.draw(1 * imgWidth, 0 * imgHeight);   // original input image in HSV color space representation
+    backgroundImg.draw(2 * imgWidth, 0 * imgHeight);   // registred background image
     
     // row 2
     hueImg.draw(0 * imgWidth, 1 * imgHeight);
     saturationImg.draw(1 * imgWidth, 1 * imgHeight);
     valueImg.draw(2 * imgWidth, 1 * imgHeight);
-
+    
+    // row 3
+    bckgrndSatDiffImg.draw(1 * imgWidth, 2 * imgHeight);
     
     // draw image captions
     ofSetColor(236, 50, 135);   // set color: OF pink
     ofDrawBitmapString("Original", labelPosDelta + 0 * imgWidth, labelPosDelta + 0 * imgHeight);
     ofDrawBitmapString("HSV", labelPosDelta + 1 * imgWidth, labelPosDelta + 0 * imgHeight);
+    ofDrawBitmapString("Registered Background", labelPosDelta + 2 * imgWidth, labelPosDelta + 0 * imgHeight);
     ofDrawBitmapString("Hue", labelPosDelta + 0 * imgWidth, labelPosDelta + 1 * imgHeight);
     ofDrawBitmapString("Saturation", labelPosDelta + 1 * imgWidth, labelPosDelta + 1 * imgHeight);
     ofDrawBitmapString("Value", labelPosDelta + 2 * imgWidth, labelPosDelta + 1 * imgHeight);
+    ofDrawBitmapString("Bckgrnd-Sat-Difference", labelPosDelta + 1 * imgWidth, labelPosDelta + 2 * imgHeight);
 }
 
 //--------------------------------------------------------------
-void ofApp::keyPressed(int key){
-
+void ofApp::keyPressed(int key)
+{
+    // press spacebar (key code == 32): learn background
+    if (key == 32) {
+        // copy information of current saturation color channel image into background image reference
+        backgroundImg = saturationImg;
+    }
 }
 
 //--------------------------------------------------------------
