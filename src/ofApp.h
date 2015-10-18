@@ -37,6 +37,9 @@ class ofApp : public ofBaseApp{
         int imgWidth;
         int imgHeight;
     
+        // object detection properties
+        int detectionThreshold;
+    
         // image instances (managed by OpenCV)
         ofxCvColorImage originalInputImg;   // original image as received from camera source in RGB color space
         ofxCvColorImage hsvImg; // representing the original input image in HSV color space

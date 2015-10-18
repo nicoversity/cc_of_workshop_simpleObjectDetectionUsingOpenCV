@@ -35,6 +35,9 @@ void ofApp::setup()
     imgWidth  = 320;
     imgHeight = 240;
     
+    // initialize object detection properties
+    detectionThreshold = 70;    // very high contrast
+    
     // initialize OpenCV image instances
     // (manual memory allocation required)
     originalInputImg.allocate(imgWidth, imgHeight);
@@ -75,6 +78,9 @@ void ofApp::update()
         
         // take the absolute value of the difference between the registered background image and the updated saturation color channel image in order to determine the image parts that have changed
         bckgrndSatDiffImg.absDiff(backgroundImg, saturationImg);
+        
+        // increase the contrast of the image
+        bckgrndSatDiffImg.threshold(detectionThreshold);
     }
 }
 
