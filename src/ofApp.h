@@ -38,7 +38,10 @@ class ofApp : public ofBaseApp{
         int imgHeight;
     
         // object detection properties
-        int detectionThreshold;
+        int detectionThreshold;     // representing the contrast increase
+        int detectedObjectMax;      // representing the maximum amount of detected objects
+        int contourMinArea;         // presenting the minimum amount of adjacent pixels in order to detect an object
+        int contourMaxArea;         // presenting the maximum amount of adjacent pixels in order to detect an object
     
         // image instances (managed by OpenCV)
         ofxCvColorImage originalInputImg;   // original image as received from camera source in RGB color space
@@ -48,6 +51,9 @@ class ofApp : public ofBaseApp{
         ofxCvGrayscaleImage valueImg;       // representing the value channel of the HSV image
         ofxCvGrayscaleImage backgroundImg;      // registred background image in order to assist object detection
         ofxCvGrayscaleImage bckgrndSatDiffImg;    // image instance representing the difference between the registered background image and the current saturation color channel image in order to run the object (contour) detection on
+    
+        // OpenCV contour finder instance for handling object detection
+        ofxCvContourFinder contourFinder;
     
         // camera instance
         ofVideoGrabber cameraInput;

@@ -37,6 +37,9 @@ void ofApp::setup()
     
     // initialize object detection properties
     detectionThreshold = 70;    // very high contrast
+    detectedObjectMax  = 10;    // maximum of 10 detected object at a time
+    contourMinArea     = 40;    // detect a wide range of different sized objects
+    contourMaxArea     = (imgWidth * imgHeight) / 3;
     
     // initialize OpenCV image instances
     // (manual memory allocation required)
@@ -81,6 +84,10 @@ void ofApp::update()
         
         // increase the contrast of the image
         bckgrndSatDiffImg.threshold(detectionThreshold);
+        
+        // apply object detection via OpenCV contour finder class
+        contourFinder.findContours(bckgrndSatDiffImg, contourMinArea, contourMaxArea, detectedObjectMax, false);
+        
     }
 }
 
@@ -105,6 +112,15 @@ void ofApp::draw()
     
     // row 3
     bckgrndSatDiffImg.draw(1 * imgWidth, 2 * imgHeight);
+    
+    
+    // visualize object detection
+    // draw detected objects ("blobs") individually
+    for (int i = 0; i < contourFinder.nBlobs; i++) {
+        // access current blob
+        contourFinder.blobs[i].draw(2 * imgWidth, 2 * imgHeight);   // draw current blob in bottom right image grid
+    }
+    
     
     // draw image captions
     ofSetColor(236, 50, 135);   // set color: OF pink
