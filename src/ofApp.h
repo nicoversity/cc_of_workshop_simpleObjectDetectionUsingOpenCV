@@ -38,7 +38,11 @@ class ofApp : public ofBaseApp{
         int imgHeight;
     
         // image instances (managed by OpenCV)
-        ofxCvColorImage originalInputImg;   // original image as received from camera source
+        ofxCvColorImage originalInputImg;   // original image as received from camera source in RGB color space
+        ofxCvColorImage hsvImg; // representing the original input image in HSV color space
+        ofxCvGrayscaleImage hueImg;         // representing the hue channel of the HSV image
+        ofxCvGrayscaleImage saturationImg;  // representing the saturation channel of the HSV image
+        ofxCvGrayscaleImage valueImg;       // representing the value channel of the HSV image
     
         // camera instance
         ofVideoGrabber cameraInput;

@@ -38,6 +38,10 @@ void ofApp::setup()
     // initialize OpenCV image instances
     // (manual memory allocation required)
     originalInputImg.allocate(imgWidth, imgHeight);
+    hsvImg.allocate(imgWidth, imgHeight);
+    hueImg.allocate(imgWidth, imgHeight);
+    saturationImg.allocate(imgWidth, imgHeight);
+    valueImg.allocate(imgWidth, imgHeight);
     
     // initialize camera instance
     debugCameraDevices();   // print information about available camera sources
@@ -59,6 +63,13 @@ void ofApp::update()
     {
         // read (new) pixels from camera input and write them to original input image instance
         originalInputImg.setFromPixels(cameraInput.getPixels(), imgWidth, imgHeight);
+        
+        // create HCV color space image based on original (RGB) received camera input image
+        hsvImg = originalInputImg;
+        hsvImg.convertRgbToHsv();
+        
+        // extract HSV color space channels into separate image instances
+        hsvImg.convertToGrayscalePlanarImages(hueImg, saturationImg, valueImg);
     }
 }
 
@@ -68,12 +79,26 @@ void ofApp::draw()
     // reset color for drawing
     ofSetHexColor(0xffffffff);  // set color "white" in hexadicimal representation
     
-    // draw original input image as received from camera source
-    originalInputImg.draw(0 * imgWidth, 0 * imgHeight);
+    // draw grid of images
+    //
     
-    // draw image caption
+    // row 1
+    originalInputImg.draw(0 * imgWidth, 0 * imgHeight); // draw original input image as received from camera source
+    hsvImg.draw(1 * imgWidth, 0 * imgHeight);   // original input image in HSV color space representation
+    
+    // row 2
+    hueImg.draw(0 * imgWidth, 1 * imgHeight);
+    saturationImg.draw(1 * imgWidth, 1 * imgHeight);
+    valueImg.draw(2 * imgWidth, 1 * imgHeight);
+
+    
+    // draw image captions
     ofSetColor(236, 50, 135);   // set color: OF pink
     ofDrawBitmapString("Original", labelPosDelta + 0 * imgWidth, labelPosDelta + 0 * imgHeight);
+    ofDrawBitmapString("HSV", labelPosDelta + 1 * imgWidth, labelPosDelta + 0 * imgHeight);
+    ofDrawBitmapString("Hue", labelPosDelta + 0 * imgWidth, labelPosDelta + 1 * imgHeight);
+    ofDrawBitmapString("Saturation", labelPosDelta + 1 * imgWidth, labelPosDelta + 1 * imgHeight);
+    ofDrawBitmapString("Value", labelPosDelta + 2 * imgWidth, labelPosDelta + 1 * imgHeight);
 }
 
 //--------------------------------------------------------------
