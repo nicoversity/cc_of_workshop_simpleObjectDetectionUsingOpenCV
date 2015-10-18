@@ -1,2 +1,2 @@
-# cc_of_workshop_simpleObjectDectionUsingOpenCV
-Creative coding using openFrameworks - Workshop: Simple Object Detection using OpenCV
+# Creative coding using openFrameworks - Workshop: Simple Object Detection using OpenCV
+
