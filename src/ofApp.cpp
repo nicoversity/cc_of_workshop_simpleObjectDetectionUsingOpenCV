@@ -96,7 +96,7 @@ void ofApp::update()
 void ofApp::draw()
 {
     // reset color for drawing
-    ofSetHexColor(0xffffffff);  // set color "white" in hexadicimal representation
+    ofSetHexColor(0xffffffff);  // set color "white" in hexadecimal representation
     
     // draw grid of images
     //
@@ -143,7 +143,7 @@ void ofApp::draw()
                  blobCenterPnt.y + 2 * imgHeight,
                  blobOverlayRadius);
     }
-    
+
     
     // draw image captions
     ofSetColor(236, 50, 135);   // set color: OF pink

@@ -33,7 +33,7 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
     
-        // image propeties
+        // image properties
         int imgWidth;
         int imgHeight;
     
