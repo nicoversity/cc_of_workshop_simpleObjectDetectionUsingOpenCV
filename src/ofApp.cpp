@@ -3,6 +3,8 @@
  *
  * Project: Creative coding using openFrameworks - Workshop: Simple Object Detection using OpenCV
  *
+ * Supported openFrameworks version: 0.9.0
+ *
  * Author: Nico Reski
  * Web: http://reski.nicoversity.com
  * Twitter: @nicoversity
@@ -54,7 +56,8 @@ void ofApp::setup()
     // initialize camera instance
     debugCameraDevices();   // print information about available camera sources
     cameraInput.setDeviceID(0);     // 0 -> default if at least once camera is available (get device id of other camera sources from running debugCameraDevices() )
-    cameraInput.initGrabber(imgWidth, imgHeight, true); // enable bTexture flag for setting up a texture and displaying the video on screen
+    // cameraInput.initGrabber(imgWidth, imgHeight, true); // OF version 0.8.4; enable bTexture flag for setting up a texture and displaying the video on screen
+    cameraInput.initGrabber(imgWidth, imgHeight); // OF version 0.9.0
     
     // initialize helper values
     labelPosDelta     = 14;
@@ -71,7 +74,8 @@ void ofApp::update()
     if (cameraInput.isFrameNew())
     {
         // read (new) pixels from camera input and write them to original input image instance
-        originalInputImg.setFromPixels(cameraInput.getPixels(), imgWidth, imgHeight);
+        //originalInputImg.setFromPixels(cameraInput.getPixels(), imgWidth, imgHeight);    // OF version 0.8.4
+        originalInputImg.setFromPixels(cameraInput.getPixels());    // OF version 0.9.0
         
         // create HCV color space image based on original (RGB) received camera input image
         hsvImg = originalInputImg;
@@ -126,7 +130,8 @@ void ofApp::draw()
         //
         
         // get pixel reference of original input image
-        ofPixels originalInputImagePxls = originalInputImg.getPixelsRef();
+        //ofPixels originalInputImagePxls = originalInputImg.getPixelsRef();    // OF version 0.8.4
+        ofPixels originalInputImagePxls = originalInputImg.getPixels(); // OF version 0.9.0
         
         // get point reference to the center of the current detected blob
         ofPoint blobCenterPnt = contourFinder.blobs[i].centroid;
@@ -139,9 +144,14 @@ void ofApp::draw()
         ofFill();
         
         // draw circle overlay in bottom left image of the grid (ontop of a copy of the saturation image)
-        ofCircle(blobCenterPnt.x + 0 * imgWidth,
-                 blobCenterPnt.y + 2 * imgHeight,
-                 blobOverlayRadius);
+        // OF version 0.8.4
+        /*ofCircle(blobCenterPnt.x + 0 * imgWidth,
+         blobCenterPnt.y + 2 * imgHeight,
+         blobOverlayRadius); */
+        // OF version 0.9.0
+        ofDrawCircle(blobCenterPnt.x + 0 * imgWidth,
+                     blobCenterPnt.y + 2 * imgHeight,
+                     blobOverlayRadius);
     }
 
     
