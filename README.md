@@ -1,5 +1,7 @@
 # Creative coding using openFrameworks - Workshop: Simple Object Detection using OpenCV
 
+**NOTE from 09.11.2015**: This project source code is tested with openFrameworks 0.8.4. The full compatibility with openFrameworks 0.9.0 is not guaranteed. An updated version will be uploaded in the upcoming days.
+
 The purpose of this project is to illustrate and teach the access of connected cameras, basic image manipulation as well as some simple object detection capabilities of the OpenCV addon using the the creative coding toolkit [openFrameworks](http://openframeworks.cc). This activity is meant to be held in a workshop-like format and steb by step to the participants using live coding, supported by summarizing slides.
 
 Following, a brief overview about the project's content is given in order as they are illustrated during the workshop:
