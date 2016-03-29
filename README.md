@@ -11,3 +11,7 @@ Following, a brief overview about the project's content is given in order as the
 3. Simple *Image manipulation* in order to assist the later object detection by taking the difference between a registered background and the saturation color channel image. Additionally, the contrast is increased via defined threshold value.
 4. Using the OpenCV *[Contour Finder](http://openframeworks.cc/documentation/ofxOpenCv/ofxCvContourFinder.html)* instance, objects ("blobs") are detected and visualized accordingly.
 5. Using the *center point* of each detected object ("blob"), the *color* is extracted and visualized as a circle overlay.
+
+
+## License
+MIT License, see [LICENSE.md](LICENSE.md)
