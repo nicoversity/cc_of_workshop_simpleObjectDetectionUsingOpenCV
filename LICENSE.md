@@ -15,4 +15,4 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 This project uses a mix of the following projects/frameworks/libraries/sdks/..., so please check out their licenses:
 
-* [openFrameworks](https://github.com/openframeworks/openFrameworks/) 0.9.0 (OS X release)
+* [openFrameworks](https://github.com/openframeworks/openFrameworks/) 0.9.6 (OS X release)
