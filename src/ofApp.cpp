@@ -3,7 +3,7 @@
  *
  * Project: Creative coding using openFrameworks - Workshop: Simple Object Detection using OpenCV
  *
- * Supported openFrameworks version: 0.9.0
+ * Supported openFrameworks version: 0.9.6
  *
  * Author: Nico Reski
  * Web: http://reski.nicoversity.com
@@ -137,8 +137,9 @@ void ofApp::draw()
         ofPoint blobCenterPnt = contourFinder.blobs[i].centroid;
         
         // get color of pixel in the center of the detected blob
-        ofColor detectedBlobClr = originalInputImagePxls.getColor(blobCenterPnt.x, blobCenterPnt.y);
-        
+        //ofColor detectedBlobClr = originalInputImagePxls.getColor(blobCenterPnt.x, blobCenterPnt.y);          // OF version 0.9.0
+        ofColor detectedBlobClr = originalInputImagePxls.getColor(blobCenterPnt.x / 3, blobCenterPnt.y / 3);    // OF version 0.9.6
+
         // apply detected color for drawing circle overlay
         ofSetColor(detectedBlobClr);
         ofFill();
@@ -146,8 +147,8 @@ void ofApp::draw()
         // draw circle overlay in bottom left image of the grid (ontop of a copy of the saturation image)
         // OF version 0.8.4
         /*ofCircle(blobCenterPnt.x + 0 * imgWidth,
-         blobCenterPnt.y + 2 * imgHeight,
-         blobOverlayRadius); */
+                   blobCenterPnt.y + 2 * imgHeight,
+                   blobOverlayRadius); */
         // OF version 0.9.0
         ofDrawCircle(blobCenterPnt.x + 0 * imgWidth,
                      blobCenterPnt.y + 2 * imgHeight,

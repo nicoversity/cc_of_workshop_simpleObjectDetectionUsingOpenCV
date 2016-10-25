@@ -3,7 +3,7 @@
  *
  * Project: Creative coding using openFrameworks - Workshop: Simple Object Detection using OpenCV
  *
- * Supported openFrameworks version: 0.9.0
+ * Supported openFrameworks version: 0.9.6
  *
  * Author: Nico Reski
  * Web: http://reski.nicoversity.com
